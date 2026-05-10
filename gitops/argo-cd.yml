@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/skalyandev/devops-ai-playbook.git'
-    targetRevision: main
+    targetRevision: dev
     path: gitops
   destination:
     server: 'https://kubernetes.default.svc'
