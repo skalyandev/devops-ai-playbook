@@ -29,6 +29,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Check Secret Presence
+        run: |
+          if [ -z "${{ secrets.AWS_REGION }}" ]; then
+            echo "AWS_REGION secret missing"
+            exit 1
+          else
+            echo "AWS_REGION secret exists"
+          fi
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
