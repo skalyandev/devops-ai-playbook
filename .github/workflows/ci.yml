@@ -21,9 +21,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: |
-            projects/boutique-microservices/package-lock.json
 
       - name: Verify Node
         run: |
