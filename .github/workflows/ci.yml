@@ -27,6 +27,13 @@ jobs:
           node -v
           npm  -v
 
+      - name: Debug Workspace
+        run: |
+          pwd
+          ls -la
+          find . -name "package.json"
+          find . -name "package-lock.json"
+
       - name: Install Dependencies 
         working-directory: projects/boutique-microservices
         run: npm ci
