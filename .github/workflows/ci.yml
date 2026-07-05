@@ -23,7 +23,7 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: |
-            project/boutique-microservices/package-lock.json
+            projects/boutique-microservices/package-lock.json
 
       - name: Verify Node
         run: |
