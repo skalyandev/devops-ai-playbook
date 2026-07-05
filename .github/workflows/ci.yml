@@ -17,32 +17,26 @@ jobs:
       - name: checkout Repository
         uses: actions/checkout@v4
 
-      - name: Print Environment
-        run: |
-          echo "Runner Information"
-          hostname
-          pwd
-          whoami
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            project/boutique-microservices/package-lock.json
 
-      - name: Verify Git
-        run: git --version
-
-      - name: Verify Docker
-        run: docker --version
-
-      - name: verify Kubectl
-        run: kubectl version --client
-
-      - name: Verify Helm
-        run: helm version
- 
       - name: Verify Node
-        run: node --version
+        run: |
+          node -v
+          npm  -v
 
-      - name: verify NPM
-        run: npm --version
+      - name: Install Dependencies 
+        working-directory: projects/boutique-microservices
+        run: npm ci
 
-      - name: Milestone 1 Completed
-        run: echo "CI Foundation is working"
+      - name: Build Project 
+        working-directory:  projects/boutique-microservices
+        run: npm run build
 
-            
+
+
