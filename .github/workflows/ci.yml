@@ -42,4 +42,10 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-            
+      - name: Trivy Filesystem Scan
+        run: |
+          trivy fs \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            --no-progress \
+            projects/boutique-microservices            
