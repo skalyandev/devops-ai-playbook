@@ -27,20 +27,17 @@ jobs:
           node -v
           npm  -v
 
-      - name: Debug Workspace
-        run: |
-          pwd
-          ls -la
-          find . -name "package.json"
-          find . -name "package-lock.json"
-
       - name: Install Dependencies 
         working-directory: projects/boutique-microservices
-        run: npm ci
+        run: npm install
 
       - name: Build Project 
         working-directory:  projects/boutique-microservices
         run: npm run build
 
-
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-actions@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
