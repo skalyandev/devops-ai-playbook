@@ -50,13 +50,13 @@ jobs:
             projects/boutique-microservices   
 
       - name: Build Docker Image
-        env: 
-          IMAGE_NAME: boutique-frontend
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
             -t $IMAGE_NAME:$IMAGE_TAG \
           projects/boutique-microservices/frontend   
+        env:
+          IMAGE_NAME: boutique-frontend
+          IMAGE_TAG: ${{ github.sha }}
 
       - name: List Docker Images
         run: docker images
