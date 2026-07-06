@@ -53,4 +53,18 @@ jobs:
         run: |
           docker build \
             -t boutique-frontend:${{ github.sha }} \
-          projects/boutique-microservices/frontend            
+          projects/boutique-microservices/frontend   
+
+      - name: List Docker Images
+        run: docker images
+
+
+      - name: Trivy Image Scan
+        uses: aquasecurity/trivy-action@0.32.0
+        with: 
+          image-ref: frontend:${{ github.sha }}
+          format: table
+          exit-code: '1'
+          ignored-unfixed: true
+          severity: HIGH,CRITICAL      
+
