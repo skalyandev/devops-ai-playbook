@@ -47,4 +47,10 @@ jobs:
           trivy fs \
             --severity HIGH,CRITICAL \
             --exit-code 0 \
-            projects/boutique-microservices            
+            projects/boutique-microservices   
+
+      - name: Build Docker Image
+        run: |
+          docker build \
+            -t boutique-frontend:${{ github.sha }} \
+          projects/boutique-microservices/frontend            
