@@ -22,11 +22,6 @@ jobs:
         with:
           node-version: 24
 
-      - name: Verify Node
-        run: |
-          node -v
-          npm  -v
-
       - name: Install Dependencies 
         working-directory: projects/boutique-microservices
         run: npm install
