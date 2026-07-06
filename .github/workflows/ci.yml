@@ -58,20 +58,18 @@ jobs:
       - name: List Docker Images
         run: docker images | grep -i "${{ github.sha }}"
 
-      - name: Debug Image
+      - name: Debug image
         run: |
-          echo "SHA=${{ github.sha }}"
-          docker images
-          docker image inspect boutique-frontend:${{ github.sha }}
+         whoami
+         echo "Image = boutique-frontend:${{ github.sha }}"
+         docker image inspect boutique-frontend:${{ github.sha }}
 
       - name: Trivy Image Scan
-        uses: aquasecurity/trivy-action@v0.36.0
-        with: 
-          image-ref: boutique-frontend:${{ github.sha }}
-          scan-type: image 
-          format: table
-          exit-code: '1'
-          ignore-unfixed: true
-          severity: HIGH,CRITICAL      
+        run: | 
+          trivy image \
+           --severity HIGH,CRITICAL \
+           --exit-code 1 \
+           --ignore-unfixed \
+           boutique-frontend:${{ github.sha }}
 
 
