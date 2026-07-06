@@ -50,12 +50,9 @@ jobs:
             projects/boutique-microservices   
 
       - name: Build Docker Image
-        env:
-          IMAGE_NAME: boutique-frontend
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
-            -t $IMAGE_NAME:$IMAGE_TAG \
+            -t boutique-frontend:${{ github.sha }} \
           projects/boutique-microservices/frontend   
 
       - name: List Docker Images
@@ -64,7 +61,7 @@ jobs:
       - name: Trivy Image Scan
         uses: aquasecurity/trivy-action@master
         with: 
-          image-ref: ${{ env.IMAGE_NAME}}:${{env.IMAGE_TAG }}
+          image-ref: boutique-frontend:${{ github.sha }}
           format: table
           exit-code: '1'
           ignore-unfixed: true
