@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Dependencies 
         working-directory: projects/boutique-microservices
-        run: npm install
+        run: npm ci
 
       - name: Build Project 
         working-directory:  projects/boutique-microservices
@@ -56,12 +56,13 @@ jobs:
           projects/boutique-microservices/frontend   
 
       - name: List Docker Images
-        run: docker images
+        run: docker images | grep -i "${{ github.sha }}"
 
       - name: Trivy Image Scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.33.1
         with: 
           image-ref: boutique-frontend:${{ github.sha }}
+          scan-type: image 
           format: table
           exit-code: '1'
           ignore-unfixed: true
