@@ -28,10 +28,10 @@ jobs:
       - name: checkout Repository
         uses: actions/checkout@v4
 
-     - name: Setup Node.js 
-       uses: actions/setup-node@v4
-       with:
-         node-version: 24
+      - name: Setup Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
      # - name: Install Dependencies 
      #   working-directory: projects/boutique-microservices
