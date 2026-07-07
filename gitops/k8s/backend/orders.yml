@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: 7981689475/boutique-orders:8935a3de13cda7d63a81fd6b77925f9e1e000100
+          image: 7981689475/boutique-orders:689f58cc7ba08df4fafa6ed9d1a1b2519fcbd1bf
           ports:
             - containerPort: 3005
           env:
