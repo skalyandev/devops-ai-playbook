@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: 7981689475/boutique-auth:2612069ebef914a248ff2af372b4e9aae34fca41
+          image: 7981689475/boutique-auth:dfb0bfba595bc98a08282fedbad5379394505a43
           ports:
             - containerPort: 3002
           env:

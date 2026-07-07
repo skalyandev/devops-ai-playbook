@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: 7981689475/boutique-gateway:2612069ebef914a248ff2af372b4e9aae34fca41
+          image: 7981689475/boutique-gateway:dfb0bfba595bc98a08282fedbad5379394505a43
           ports:
             - containerPort: 3001
           env:
