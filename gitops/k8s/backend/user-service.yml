@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: 7981689475/boutique-user-service:b8dc366f508738485e0d87b00fbb1a3e98507e79
+          image: 7981689475/boutique-user-service:2612069ebef914a248ff2af372b4e9aae34fca41
           ports:
             - containerPort: 3006
           env:
