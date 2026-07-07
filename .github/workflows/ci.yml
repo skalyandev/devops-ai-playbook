@@ -77,7 +77,7 @@ jobs:
           echo "Building from $BUILD_PATH"
 
           docker build \
-            -t boutique-${{ matrix.service }}:$IMAGE_TAG \
+            -t boutique-${{ matrix.service }}:${{ github.sha }} \
           $BUILD_PATH
 
 
