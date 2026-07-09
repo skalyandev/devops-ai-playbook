@@ -28,7 +28,13 @@ jobs:
         run: |
           git fetch origin dev
 
-          CHANGED_FILES=$(git diff --name-only origin/dev...HEAD)
+          echo "Before SHA: ${{ github.event.before }}"
+
+          echo "Current SHA: ${{ github.sha }}"
+
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+
+          #CHANGED_FILES=$(git diff --name-only origin/dev...HEAD)
 
           echo "Changed Files:"
           echo "$CHANGED_FILES"
