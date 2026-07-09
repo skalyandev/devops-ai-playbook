@@ -144,3 +144,65 @@ jobs:
         run: |
           docker push \
             ${{ secrets.DOCKER_USERNAME }}/boutique-${{ matrix.service }}:${{ github.sha }}
+
+
+  update-manifests:
+    name: Update Kubernetes Manifests
+
+    needs:
+      - detect-changes
+      - build
+
+    if: >
+      github.event_name == 'push' &&
+      needs.detect-changes.outputs.services != '[]'
+
+    runs-on: self-hosted
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BOUTIQUE_GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Update Changed Manifests
+        shell: bash
+        run: |
+          TAG=${{ github.sha }}
+          USERNAME=${{ secrets.DOCKER_USERNAME }}
+
+          SERVICES='${{ needs.detect-changes.outputs.services }}'
+
+          echo "$SERVICES" | jq -r '.[]' | while read SERVICE
+          do
+            echo "Updating $SERVICE"
+
+            if [ "$SERVICE" = "frontend" ]; then
+              FILE="gitops/k8s/frontend/deployment.yml"
+            else
+              FILE="gitops/k8s/backend/${SERVICE}.yml"
+            fi
+
+            sed -i "s|image:.*|image: ${USERNAME}/boutique-${SERVICE}:${TAG}|g" "$FILE"
+
+          done
+
+      - name: Commit Changes
+        shell: bash
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add gitops/
+
+          if git diff --cached --quiet
+          then
+            echo "No manifest changes."
+          else
+            git commit -m "Update image tags to ${{ github.sha }}"
+            git push
+          fi
