@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 7981689475/boutique-frontend:0dee071da55abea8402c973feec19abb5476d69a
+          image: 7981689475/boutique-frontend:02b669cac1fee8950155b859eb3b320ee1715089
           ports:
             - containerPort: 3000
           env:
