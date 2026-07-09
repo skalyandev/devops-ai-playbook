@@ -172,7 +172,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.BOUTIQUE_GITHUB_TOKEN }}
+          token: ${{ secrets.BOTIQUE_GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Update Changed Manifests
