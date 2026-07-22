@@ -6,15 +6,20 @@ pipeline {
 
   stages {
      
-     stage("Test Shared Library") {
+     stage("Checkout") {
         steps {
-           
-           hello()
-
+           checkout scm
        }
-
+     }
+   
+     stage("Detect Changes") {
+       steps {
+         script {
+           def services = detetChanges()
+           echo "Services = ${services}"
+         }
+       }
      }
 
    }
-
 }
