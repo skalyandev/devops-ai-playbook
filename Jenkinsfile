@@ -15,8 +15,9 @@ pipeline {
      stage("Detect Changes") {
        steps {
          script {
-           def services = detectChanges()
-           echo "Services = ${services}"
+           #def services = detectChanges()
+           #echo "Services = ${services}"
+           hello()
          }
        }
      }
