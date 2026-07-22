@@ -14,11 +14,11 @@ pipeline {
    
      stage("Detect Changes") {
        steps {
-         script {
+         //script {
            //def services = detectChanges()
           //echo "Services = ${services}"
            hello()
-         }
+         //}
        }
      }
 
