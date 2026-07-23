@@ -55,8 +55,7 @@ pipeline {
         script {
             trivyScan(
                 image: IMAGE,
-                severity: "CRITICAL,HIGH",
-                exitCode: "0"
+                severity: "CRITICAL,HIGH"
             )
         }
       }
