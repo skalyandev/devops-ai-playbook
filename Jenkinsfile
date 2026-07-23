@@ -30,5 +30,13 @@ pipeline {
        }
     }
 
+    stage("Code Quality") {
+      steps {
+        script {
+          sonarScan()
+          qualityGate()
+        }
+      }
+    }
    }
 }
