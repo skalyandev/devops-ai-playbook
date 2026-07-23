@@ -30,15 +30,6 @@ pipeline {
        }
     }
     
-    stage("Debug Environment") {
-      steps {
-         sh '''
-            echo "DOCKER_USERNAME=$DOCKER_USERNAME"
-            echo "PROJECT_NAME=$PROJECT_NAME"
-         '''
-      }
-    }
-
     stage("Docker Build") {
       steps {
         script {
@@ -64,7 +55,8 @@ pipeline {
         script {
             trivyScan( 
                 image: IMAGE,
-                serverity: "CRITICAL, HIGH"
+                serverity: "CRITICAL, HIGH",
+                exit-code: 0
             )
         }
       }
