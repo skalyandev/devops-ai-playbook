@@ -53,14 +53,13 @@ pipeline {
     stage("Trivy Scan") {
       steps {
         script {
-            trivyScan( 
+            trivyScan(
                 image: IMAGE,
-                serverity: "CRITICAL, HIGH",
+                severity: "CRITICAL,HIGH",
                 exitCode: 0
             )
         }
       }
-    }
-
+     }
    }
 }
