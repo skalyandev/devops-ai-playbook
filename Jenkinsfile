@@ -60,5 +60,16 @@ pipeline {
         }
       }
      }
+
+    stage("Docker Push") {
+      steps {
+        script {
+            dockerPush(
+                IMAGE
+            )
+        }
+      }
+    }
+
    }
 }
