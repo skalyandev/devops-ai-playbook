@@ -22,12 +22,20 @@ pipeline {
        }
      }
   
-    stage("Docker Build") {
+    stage("Docker Login") {
       steps {
         script {
-          dockerBuild("auth")
+          dockerLogin("docker-creds")
         }
        }
+    }
+
+    stage("Docker Build") {
+      steps {
+        scripts {
+          dockerBuild()
+       }
+      }
     }
 
     stage("Code Quality") {
