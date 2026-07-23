@@ -37,7 +37,7 @@ pipeline {
              service: "auth"
           )
 
-          echo "Image: ${IMAGE}"
+          echo "Built Image: ${IMAGE}"
        }
       }
     }
@@ -54,7 +54,8 @@ pipeline {
       steps {
         script {
             trivyScan( 
-                image: IMAGE
+                image: IMAGE,
+                serverity: "CRITICAL, HIGH"
             )
         }
       }
