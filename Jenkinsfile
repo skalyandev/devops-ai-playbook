@@ -29,6 +29,15 @@ pipeline {
         }
        }
     }
+    
+    stage("Debug Environment") {
+      steps {
+         sh '''
+            echo "DOCKER_USERNAME=$DOCKER_USERNAME"
+            echo "PROJECT_NAME=$PROJECT_NAME"
+         '''
+      }
+    }
 
     stage("Docker Build") {
       steps {
