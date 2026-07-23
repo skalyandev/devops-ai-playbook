@@ -25,7 +25,7 @@ pipeline {
     stage("Docker Login") {
       steps {
         script {
-          dockerLogin("docker-creds")
+          dockerLogin("dockerhub-creds")
         }
        }
     }
