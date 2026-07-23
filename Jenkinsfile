@@ -25,7 +25,9 @@ pipeline {
     stage("Docker Login") {
       steps {
         script {
-          dockerLogin("dockerhub-creds")
+          dockerLogin( 
+              credentialsId: "dockerhub-creds"
+          )
         }
        }
     }
@@ -33,17 +35,32 @@ pipeline {
     stage("Docker Build") {
       steps {
         script {
-          dockerBuild()
+          IMAGE = dockerBuild(
+             service: "auth"
+          )
+
+          echo "Image: ${IMAGE}"
        }
       }
     }
 
-    stage("Code Quality") {
+    stage("SonarQube Scan") {
       steps {
         script {
           sonarScan()
         }
       }
     }
+
+    stage("Trivy Scan") {
+      steps {
+        script {
+            trivyScan( 
+                image: IMAGE
+            )
+        }
+      }
+    }
+
    }
 }
