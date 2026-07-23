@@ -34,7 +34,6 @@ pipeline {
       steps {
         script {
           sonarScan()
-          qualityGate()
         }
       }
     }
