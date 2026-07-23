@@ -56,7 +56,7 @@ pipeline {
             trivyScan( 
                 image: IMAGE,
                 serverity: "CRITICAL, HIGH",
-                exit-code: 0
+                exitCode: 0
             )
         }
       }
