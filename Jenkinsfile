@@ -70,45 +70,47 @@ pipeline {
                 }
             }
         }
-    }
 
-stage("Test Teams Webhook") {
-    steps {
-        withCredentials([
-            string(
-                credentialsId: 'microsoft-teams-webhook',
-                variable: 'TEAMS_WEBHOOK'
-            )
-        ]) {
 
-            sh '''
-                curl -X POST \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "type":"message",
-                    "attachments":[
-                      {
-                        "contentType":"application/vnd.microsoft.card.adaptive",
-                        "content":{
-                          "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
-                          "type":"AdaptiveCard",
-                          "version":"1.4",
-                          "body":[
-                            {
-                              "type":"TextBlock",
-                              "text":"Jenkins Webhook Test",
-                              "weight":"Bolder"
-                            }
-                          ]
+        // Temporary testing stage only
+        stage("Test Teams Webhook") {
+            steps {
+                withCredentials([
+                    string(
+                        credentialsId: 'microsoft-teams-webhook',
+                        variable: 'TEAMS_WEBHOOK'
+                    )
+                ]) {
+
+                    sh '''
+                    curl -X POST \
+                    -H "Content-Type: application/json" \
+                    -d '{
+                      "type":"message",
+                      "attachments":[
+                        {
+                          "contentType":"application/vnd.microsoft.card.adaptive",
+                          "content":{
+                            "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
+                            "type":"AdaptiveCard",
+                            "version":"1.4",
+                            "body":[
+                              {
+                                "type":"TextBlock",
+                                "text":"Jenkins Webhook Test Successful",
+                                "weight":"Bolder"
+                              }
+                            ]
+                          }
                         }
-                      }
-                    ]
-                }' \
-                "$TEAMS_WEBHOOK"
-            '''
+                      ]
+                    }' \
+                    "$TEAMS_WEBHOOK"
+                    '''
+                }
+            }
         }
     }
-}
 
 
     post {
