@@ -81,31 +81,28 @@ pipeline {
                     )
                 ]) {
 
-                    sh '''
-                    curl -i -X POST \
-                    -H "Content-Type: application/json" \
-                    -d '{
-                        "type": "message",
-                        "attachments": [
-                            {
-                                "contentType": "application/vnd.microsoft.card.adaptive",
-                                "content": {
-                                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                                    "type": "AdaptiveCard",
-                                    "version": "1.4",
-                                    "body": [
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "Jenkins Webhook Test Successful",
-                                            "weight": "Bolder"
-                                        }
-                                    ]
+                     sh '''
+                        curl -i -X POST \
+                        -H "Content-Type: application/json" \
+                        -d '{
+                        "@type":"MessageCard",
+                        "@context":"https://schema.org/extensions",
+                        "themeColor":"2EB886",
+                        "summary":"Jenkins Build",
+                        "title":"🚀 Jenkins Pipeline Notification",
+                        "sections":[
+                           {
+                             "facts":[
+                                {
+                                 "name":"Status",
+                                 "value":"SUCCESS"
                                 }
-                            }
+                             ]
+                          }
                         ]
-                    }' \
-                    "$TEAMS_WEBHOOK"
-                    '''
+                      }' \
+                      "$TEAMS_WEBHOOK"
+                      '''
                 }
             }
         }
