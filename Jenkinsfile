@@ -71,7 +71,6 @@ pipeline {
             }
         }
 
-
         // Temporary testing stage only
         stage("Test Teams Webhook") {
             steps {
@@ -83,27 +82,27 @@ pipeline {
                 ]) {
 
                     sh '''
-                    curl -X POST \
+                    curl -i -X POST \
                     -H "Content-Type: application/json" \
                     -d '{
-                      "type":"message",
-                      "attachments":[
-                        {
-                          "contentType":"application/vnd.microsoft.card.adaptive",
-                          "content":{
-                            "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
-                            "type":"AdaptiveCard",
-                            "version":"1.4",
-                            "body":[
-                              {
-                                "type":"TextBlock",
-                                "text":"Jenkins Webhook Test Successful",
-                                "weight":"Bolder"
-                              }
-                            ]
-                          }
-                        }
-                      ]
+                        "type": "message",
+                        "attachments": [
+                            {
+                                "contentType": "application/vnd.microsoft.card.adaptive",
+                                "content": {
+                                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                                    "type": "AdaptiveCard",
+                                    "version": "1.4",
+                                    "body": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "Jenkins Webhook Test Successful",
+                                            "weight": "Bolder"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
                     }' \
                     "$TEAMS_WEBHOOK"
                     '''
@@ -111,7 +110,6 @@ pipeline {
             }
         }
     }
-
 
     post {
 
