@@ -80,31 +80,33 @@ pipeline {
                         variable: 'TEAMS_WEBHOOK'
                     )
                 ]) {
-                   
-                 curl -i -X POST \
-                 -H "Content-Type: application/json" \
-                 -d '{
-                       "type": "message",
-                       "attachments": [
-                     {
-                       "contentType": "application/vnd.microsoft.card.adaptive",
-                       "content": {
-                          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                          "type": "AdaptiveCard",
-                          "version": "1.4",
-                          "body": [
-                             {
-                               "type": "TextBlock",
-                               "text": "🚀 Jenkins Webhook Test Successful",
-                               "weight": "Bolder",
-                               "size": "Medium"
-                             }
-                          ]
-                       }
-                     } 
-                     ]
+
+                    sh '''
+                    curl -i -X POST \
+                    -H "Content-Type: application/json" \
+                    -d '{
+                        "type": "message",
+                        "attachments": [
+                            {
+                                "contentType": "application/vnd.microsoft.card.adaptive",
+                                "content": {
+                                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                                    "type": "AdaptiveCard",
+                                    "version": "1.4",
+                                    "body": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "🚀 Jenkins Webhook Test Successful",
+                                            "weight": "Bolder",
+                                            "size": "Medium"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
                     }' \
                     "$TEAMS_WEBHOOK"
+                    '''
                 }
             }
         }
