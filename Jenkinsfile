@@ -18,8 +18,18 @@ pipeline {
             steps {
                 script {
                     def services = detectChanges()
+
                     echo "Services = ${services}"
+
                     hello()
+                }
+            }
+        }
+
+        stage("SonarQube Scan") {
+            steps {
+                script {
+                    sonarScan()
                 }
             }
         }
@@ -44,14 +54,6 @@ pipeline {
             }
         }
 
-        stage("SonarQube Scan") {
-            steps {
-                script {
-                    sonarScan()
-                }
-            }
-        }
-
         stage("Trivy Scan") {
             steps {
                 script {
@@ -70,84 +72,24 @@ pipeline {
                 }
             }
         }
-
-        // Temporary testing stage only
-        stage("Test Teams Webhook") {
-            steps {
-                withCredentials([
-                    string(
-                        credentialsId: 'microsoft-teams-webhook',
-                        variable: 'TEAMS_WEBHOOK'
-                    )
-                ]) {
-
-                    sh '''
-                    curl -i -X POST \
-                    -H "Content-Type: application/json" \
-                    -d '{
-                        "type": "message",
-                        "attachments": [
-                            {
-                                "contentType": "application/vnd.microsoft.card.adaptive",
-                                "content": {
-                                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-                                    "type": "AdaptiveCard",
-                                    "version": "1.4",
-                                    "body": [
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "🚀 Jenkins Webhook Test Successful",
-                                            "weight": "Bolder",
-                                            "size": "Medium"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }' \
-                    "$TEAMS_WEBHOOK"
-                    '''
-                }
-            }
-        }
     }
 
     post {
 
         success {
-            script {
-                teamsNotify(
-                    status: "SUCCESS",
-                    image: IMAGE ?: "N/A"
-                )
-            }
+            echo "Build completed successfully."
         }
 
         failure {
-            script {
-                teamsNotify(
-                    status: "FAILURE",
-                    image: IMAGE ?: "N/A"
-                )
-            }
+            echo "Build failed."
         }
 
         unstable {
-            script {
-                teamsNotify(
-                    status: "UNSTABLE",
-                    image: IMAGE ?: "N/A"
-                )
-            }
+            echo "Build is unstable."
         }
 
         aborted {
-            script {
-                teamsNotify(
-                    status: "ABORTED",
-                    image: IMAGE ?: "N/A"
-                )
-            }
+            echo "Build was aborted."
         }
 
         always {
@@ -155,3 +97,5 @@ pipeline {
         }
     }
 }
+
+
